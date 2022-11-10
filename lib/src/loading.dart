@@ -50,7 +50,7 @@ class LoadingWidgetState extends State<LoadingWidget> {
     super.initState();
     Future.delayed(Duration.zero, () {
       show = true;
-      setState(() {});
+      setStateIfMounted(() {});
     });
   }
 
@@ -84,8 +84,12 @@ class LoadingWidgetState extends State<LoadingWidget> {
   }
 
   void dismissAnim() {
-    setState(() {
+    setStateIfMounted(() {
       show = false;
     });
+  }
+
+  void setStateIfMounted(f) {
+    if (mounted) setState(f);
   }
 }
